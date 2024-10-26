@@ -1,4 +1,4 @@
-module github.com/burakorkmez/react-go-tutorial
+module github.com/harshcoder7/Go_todo
 
 go 1.19
 
