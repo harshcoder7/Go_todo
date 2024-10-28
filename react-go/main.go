@@ -14,7 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type Todo struct {
+type Todo struct { //here omit means if value is empty dont give a response
 	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Completed bool               `json:"completed"`
 	Body      string             `json:"body"`
@@ -40,7 +40,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	//disconnect when main function is done well disconnect from the database
 	defer client.Disconnect(context.Background())
 
 	err = client.Ping(context.Background(), nil)
@@ -79,13 +79,13 @@ func main() {
 
 func getTodos(c *fiber.Ctx) error {
 	var todos []Todo
-
+	///here we just want to fetch all the todos thats all we are doing
 	cursor, err := collection.Find(context.Background(), bson.M{})
 
 	if err != nil {
 		return err
 	}
-
+	//keyword to postpone the other function call until surrounding one ends
 	defer cursor.Close(context.Background())
 
 	for cursor.Next(context.Background()) {
